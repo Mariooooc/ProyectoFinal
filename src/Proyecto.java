@@ -110,15 +110,16 @@ public class Proyecto {
                 try {
                     //Scanner que servirá para leer ID que ingresemos
                     Scanner idEliminar = new Scanner(System.in);
-                    //Se conecta a base de datos
+                    //Se conecta a base de datos y se da la instrucción de eliminar el dato que el scanner lea
                     Class.forName(driver);
                     connection = DriverManager.getConnection(url, username, password);
                     ps = connection.prepareStatement("DELETE FROM clientes WHERE id_cliente = ?");
-
+                    
                     short id_cliente = 0;
                     System.out.println("Ingrese ID del cliente que desea eliminar: ");
                     id_cliente = idEliminar.nextShort();
 
+                    //Se indica que el dato que se ingresará será de la columna uno de la base de datos y se actualiza.
                     ps.setShort(1, id_cliente);
                     ps.executeUpdate();
 
