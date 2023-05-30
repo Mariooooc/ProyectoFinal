@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class Proyecto {
     public static void main(String[] args) throws ParseException, ClassNotFoundException, SQLException {
         Scanner read = new Scanner(System.in);
+        //Se crean las variables que se utilizarán para conectar la base de datos y un int para seleccionar la acción que queremos realizar
         String driver = "com.mysql.cj.jdbc.Driver";
         String url = "jdbc:mysql://localhost:3306/gimnasio";
         String username = "root";
@@ -26,19 +27,21 @@ public class Proyecto {
 
         if (opcion == 1) {
             try {
-
+                //Se conecta con base de datos 
                 Class.forName(driver);
 
                 connection = DriverManager.getConnection(url, username, password);
 
                 Statement statement = connection.createStatement();
 
+                //Se muestra la tabla que tenemos en la base de datos
                 rs = statement.executeQuery("select * from clientes ");
 
                 while (rs.next()) {
                     System.out.println(rs.getShort(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getDate(4));
                 }
 
+                //Se cierra la conección
                 connection.close();
 
             } catch (Exception e) {
@@ -93,15 +96,11 @@ public class Proyecto {
         } else if (opcion == 3) {
             try {
                 try {
-
+                    //Se conecta a la base de datos y muestra la tabla clientes
                     Class.forName(driver);
-
                     connection = DriverManager.getConnection(url, username, password);
-
                     Statement statement = connection.createStatement();
-
                     rs = statement.executeQuery("select * from clientes ");
-
                     while (rs.next()) {
                         System.out.println(rs.getShort(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getDate(4));
                     }
@@ -109,8 +108,9 @@ public class Proyecto {
                     System.out.println(e);
                 }
                 try {
+                    //Scanner que servirá para leer ID que ingresemos
                     Scanner idEliminar = new Scanner(System.in);
-
+                    //Se conecta a base de datos
                     Class.forName(driver);
                     connection = DriverManager.getConnection(url, username, password);
                     ps = connection.prepareStatement("DELETE FROM clientes WHERE id_cliente = ?");
